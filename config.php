@@ -11,41 +11,31 @@ $types = array(
 		"id" => "quality_manual",
 		"name" => "Quality Manual",
 		"extension_readonly" => "pdf",
-		"mime_readonly" => "application/pdf",
-		"extension_editable" => "xls",
-		"mime_editable" => "application/vnd.ms-excel"
+		"extension_editable" => "doc",
 	),
 	"quality_policy" => array(
 		"id" => "quality_policy",
 		"name" => "Quality Policy Statement",
 		"extension_readonly" => "pdf",
-		"mime_readonly" => "application/pdf",
-		"extension_editable" => "xls",
-		"mime_editable" => "application/vnd.ms-excel"
+		"extension_editable" => "doc",
 	),
 	"sop_procedure" => array(
 		"id" => "sop_procedure",
 		"name" => "SOP &amp; Procedure",
 		"extension_readonly" => "pdf",
-		"mime_readonly" => "application/pdf",
 		"extension_editable" => "xls",
-		"mime_editable" => "application/vnd.ms-excel"
 	),
 	"vendor_approval" => array(
 		"id" => "vendor_approval",
 		"name" => "Vendor Approval",
 		"extension_readonly" => "pdf",
-		"mime_readonly" => "application/pdf",
 		"extension_editable" => "xls",
-		"mime_editable" => "application/vnd.ms-excel"
 	),
 	"calibration_report" => array(
 		"id" => "calibration_report",
 		"name" => "Calibration Report",
 		"extension_readonly" => "pdf",
-		"mime_readonly" => "application/pdf",
 		"extension_editable" => "xls",
-		"mime_editable" => "application/vnd.ms-excel"
 	)
 /* If you want to add a line, pleas copy and paste the lines before to add a new array */
 /* Then, you'll need to add a coma "," just after the closing bracet ")" behind this line */

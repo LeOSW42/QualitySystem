@@ -1,4 +1,4 @@
-<? include "config.php.inc"; ?>
+<? include "config.php"; ?>
 
 <!DOCTYPE html>
 <html>
@@ -21,13 +21,8 @@
 					$directory = 'editable/'; // directory
 					if (isset($_FILES['editable_file']))
 					{
-						// Mimetype test
-						if ($_FILES['editable_file']['type'] != $types[$_GET['id']]['mime_editable'])
-						{
-							$erreurUp = 'The file must be in <span class="uppercase">'.$types[$_GET['id']]['extension_editable'].'</span> format.';
-						}
 						// Test max size
-						elseif ($_FILES['editable_file']['size'] > $max_size)
+						if ($_FILES['editable_file']['size'] > $max_size)
 						{
 							$erreurUp = 'The maximum size is ' . $max_size/1024 . 'KB per file.';
 						}
@@ -67,13 +62,8 @@
 					$directory = 'readonly/'; // directory
 					if (isset($_FILES['readonly_file']))
 					{
-						// Mimetype test
-						if ($_FILES['readonly_file']['type'] != $types[$_GET['id']]['mime_readonly'])
-						{
-							$erreurUp = 'The file must be in <span class="uppercase">'.$types[$_GET['id']]['extension_readonly'].'</span> format.';
-						}
 						// Test max size
-						elseif ($_FILES['readonly_file']['size'] > $max_size)
+						if ($_FILES['readonly_file']['size'] > $max_size)
 						{
 							$erreurUp = 'The maximum size is ' . $max_size/1024 . 'KB per file.';
 						}
@@ -126,11 +116,11 @@
 		<article id="file_select">
 			<h2>Select the <span class="uppercase"><? echo $types[$_GET['id']]['extension_editable']; ?></span> file</h2>
 			<p class="legend">Please select the editable file in <span class="uppercase"><? echo $types[$_GET['id']]['extension_editable']; ?></span> format, it will be renamed in <span class="filename"><? echo $types[$_GET['id']]['id'].".".$types[$_GET['id']]['extension_editable']; ?></span></p>
-			<input type="file" accept="<? echo $types[$_GET['id']]['mime_editable']; ?>" name="editable_file">
+			<input type="file" name="editable_file">
 			<br /><br />
 			<h2>Select the <span class="uppercase"><? echo $types[$_GET['id']]['extension_readonly']; ?></span> file</h2>
 			<p class="legend">Please select the editable file in <span class="uppercase"><? echo $types[$_GET['id']]['extension_readonly']; ?></span> format, it will be renamed in <span class="filename"><? echo $types[$_GET['id']]['id'].".".$types[$_GET['id']]['extension_readonly']; ?></span></p>
-			<input type="file" accept="<? echo $types[$_GET['id']]['mime_readonly']; ?>" name="readonly_file">
+			<input type="file" name="readonly_file">
 			<br /><br /><p>Warning: That will delete and replace the currents files</p><br />
 			<input type="submit" value="Submit" name="submit_files">
 		</article>

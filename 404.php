@@ -1,4 +1,4 @@
-<? include "config.php.inc"; ?>
+<? include "config.php"; ?>
 
 <!DOCTYPE html>
 <html>
