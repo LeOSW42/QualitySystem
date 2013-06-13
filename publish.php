@@ -16,7 +16,14 @@
 			<h2>The files are uploading</h2>
 			<p>Uploading <? echo $types[$_GET['id']]['id'].'.'.$types[$_GET['id']]['extension_editable'];?>…</p>
 		 
-			<? if ($_FILES['editable_file'] != NULL) {
+			<?
+			if(file_exists("editable/".$types[$_GET['id']]['id'].'.'.$types[$_GET['id']]['extension_editable']))
+			{
+				for($i=1;file_exists("readonly/".$types[$_GET['id']]['id'].$i.'.'.$types[$_GET['id']]['extension_editable']);$i++) {}
+				rename("editable/".$types[$_GET['id']]['id'].'.'.$types[$_GET['id']]['extension_editable'],"editable/".$types[$_GET['id']]['id'].$i.'.'.$types[$_GET['id']]['extension_editable']);
+			}		 
+
+			 if ($_FILES['editable_file'] != NULL) {
 				$max_size = 10000000; // approx. 10 MB
 					$directory = 'editable/'; // directory
 					if (isset($_FILES['editable_file']))
@@ -56,7 +63,14 @@
 		
 			<br /><p>Uploading <? echo $types[$_GET['id']]['id'].'.'.$types[$_GET['id']]['extension_readonly'];?>…</p>
 			
-			<? unset($erreurUp);
+			<?
+			if(file_exists("readonly/".$types[$_GET['id']]['id'].'.'.$types[$_GET['id']]['extension_readonly']))
+			{
+				for($i=1;file_exists("readonly/".$types[$_GET['id']]['id'].$i.'.'.$types[$_GET['id']]['extension_readonly']);$i++) {}
+				rename("readonly/".$types[$_GET['id']]['id'].'.'.$types[$_GET['id']]['extension_readonly'],"readonly/".$types[$_GET['id']]['id'].$i.'.'.$types[$_GET['id']]['extension_readonly']);
+			}
+			
+			unset($erreurUp);
 			if ($_FILES['readonly_file'] != NULL) {
 				$max_size = 10000000; // approx. 10 MB
 					$directory = 'readonly/'; // directory
@@ -121,7 +135,7 @@
 			<h2>Select the <span class="uppercase"><? echo $types[$_GET['id']]['extension_readonly']; ?></span> file</h2>
 			<p class="legend">Please select the editable file in <span class="uppercase"><? echo $types[$_GET['id']]['extension_readonly']; ?></span> format, it will be renamed in <span class="filename"><? echo $types[$_GET['id']]['id'].".".$types[$_GET['id']]['extension_readonly']; ?></span></p>
 			<input type="file" name="readonly_file">
-			<br /><br /><p>Warning: That will delete and replace the currents files</p><br />
+			<br /><br />
 			<input type="submit" value="Submit" name="submit_files">
 		</article>
 		</form>
