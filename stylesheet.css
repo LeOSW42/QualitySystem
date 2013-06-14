@@ -65,6 +65,12 @@ a {
 	margin: 0 10px 0 0;
 }
 
+.database {
+	background: url('imgs/database.png') no-repeat left center;
+	padding: 2px 0 2px 20px;
+	margin: 0 10px 0 0;
+}
+
 a:hover {
 	color: #ef6428;
 }

@@ -11,14 +11,14 @@
 <body>
 	<header><h1>Publish a file</h1></header>
 	<section>
-		<? if ( isset($_POST['submit_files']) && $types[$_GET['id']]['plugin'] == "files") { ?>
+		<? if ( isset($_POST['submit_files']) ) { ?>
 		<article id="file_upload">
 			<h2>The files are uploading</h2>
 			<p>Uploading <? echo $types[$_GET['id']]['id'].'.'.$types[$_GET['id']]['extension_editable'];?>…</p>
 		 
 			<?
 
-			$directory = 'editable/'; // directory
+			$directory = '../../editable/'; // directory
 
 			if(file_exists($directory.$types[$_GET['id']]['id'].'.'.$types[$_GET['id']]['extension_editable']))
 			{
@@ -67,7 +67,7 @@
 			
 			<?
 
-			$directory = 'readonly/'; // directory
+			$directory = '../../readonly/'; // directory
 
 			if(file_exists($directory.$types[$_GET['id']]['id'].'.'.$types[$_GET['id']]['extension_readonly']))
 			{
@@ -115,7 +115,21 @@
 				
 			<br /><p>Go back to <a href="<? echo $root; ?>">home</a></p>
 		</article>	
-		<? } else if ($types[$_GET['id']]['plugin'] == "files") { ?>
+				
+		<? } else if( !isset($_GET['id']) || !isset($types[$_GET['id']]) ) { ?>
+		<article id="id_select">
+			<h2>Select the file name</h2>
+			<p class="legend">Please select the file name you are uploading…</p>
+			<form method="GET" action="">
+				<select name="id">
+					<? foreach($types as $element) { ?>
+					<option value="<? echo $element['id']; ?>"><? echo $element['name']; ?></option>
+					<? } ?>
+				</select>
+				<input type="submit" value="Ok">
+			</form>
+		</article>
+		<? } else if ( !isset($_GET['submit_files']) ) { ?>
 		<form method="POST" enctype="multipart/form-data" action="">
 		<article id="file_select">
 			<h2>Select the <span class="uppercase"><? echo $types[$_GET['id']]['extension_editable']; ?></span> file</h2>
@@ -129,22 +143,7 @@
 			<input type="submit" value="Submit" name="submit_files">
 		</article>
 		</form>
-		<? } else { ?>
-		<article id="id_select">
-			<h2>Select the file name</h2>
-			<p class="legend">Please select the file name you are uploading…</p>
-			<form method="GET" action="">
-				<select name="id">
-					<? foreach($types as $element) { 
-						if ($element['plugin']=="files") { ?>
-							<option value="<? echo $element['id']; ?>"><? echo $element['name']; ?></option>
-						<? }
-					} ?>
-				</select>
-				<input type="submit" value="Ok">
-			</form>
-		</article>
-		<? } ?>	
+		<? } ?>
 	</section>
 	<footer>
 		<p>
