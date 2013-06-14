@@ -20,45 +20,39 @@
 			$link = mysql_connect($host,$user,$pass);
 			mysql_select_db($name,$link);
 
-			$tables = is_array($tables) ? $tables : explode(',',$tables);
+			$result = mysql_query('SELECT * FROM '.$tables);
+			$num_fields = mysql_num_fields($result);
 
-			//cycle through
-			foreach($tables as $table)
+			$return = 'DROP TABLE '.$tables.';';
+			$row2 = mysql_fetch_row(mysql_query('SHOW CREATE TABLE '.$tables));
+			$return.= "\n\n".$row2[1].";\n\n";
+
+			for ($i = 0; $i < $num_fields; $i++) 
 			{
-				$result = mysql_query('SELECT * FROM '.$table);
-				$num_fields = mysql_num_fields($result);
-	
-				$return.= 'DROP TABLE '.$table.';';
-				$row2 = mysql_fetch_row(mysql_query('SHOW CREATE TABLE '.$table));
-				$return.= "\n\n".$row2[1].";\n\n";
-	
-				for ($i = 0; $i < $num_fields; $i++) 
+				while($row = mysql_fetch_row($result))
 				{
-					while($row = mysql_fetch_row($result))
+					$return.= 'INSERT INTO '.$tables.' VALUES(';
+					for($j=0; $j<$num_fields; $j++) 
 					{
-						$return.= 'INSERT INTO '.$table.' VALUES(';
-						for($j=0; $j<$num_fields; $j++) 
-						{
-							$row[$j] = addslashes($row[$j]);
-							$row[$j] = ereg_replace("\n","\\n",$row[$j]);
-							if (isset($row[$j])) { $return.= '"'.$row[$j].'"' ; } else { $return.= '""'; }
-							if ($j<($num_fields-1)) { $return.= ','; }
-						}
-						$return.= ");\n";
+						$row[$j] = addslashes($row[$j]);
+						$row[$j] = ereg_replace("\n","\\n",$row[$j]);
+						if (isset($row[$j])) { $return.= '"'.$row[$j].'"' ; } else { $return.= '""'; }
+						if ($j<($num_fields-1)) { $return.= ','; }
 					}
+					$return.= ");\n";
 				}
-				$return.="\n\n\n";
 			}
+			$return.="\n\n\n";
 
 			//save file
-			$file = 'backup/'.(md5(implode(',',$tables))).'-'.time().'.sql';
+			$file = 'backup/'.(md5($tables)).'-'.time().'.sql';
 			$handle = fopen($file,'w+');
 			fwrite($handle,$return);
 			fclose($handle);
 			return $file;
 		}
 
-		$file = backup_tables($host,$user,$password,$base,$types[$_GET['id']].['table']);
+		$file = backup_tables($host,$user,$password,$base,$types[$_GET['id']]['table']);
 
 		?>
 		<article id="export_ok">
