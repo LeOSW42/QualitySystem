@@ -11,16 +11,11 @@
 <body>
 	<header><h1><? echo $full_name; ?></h1></header>
 	<section>
-		<? foreach($types as $element) { ?>
-		<article id="<? echo $element['id']; ?>">
-			<h2><? echo $element['name']; ?></h2>
-			<p>
-				<a <? if(!file_exists("readonly/".$element['id'].".".$element['extension_readonly'])) { echo 'style="opacity: 0.4;" '; } ?>class="dl_readonly" href="readonly/<? echo $element['id']; ?>.<? echo $element['extension_readonly']; ?>">Read only version</a>
-				<a <? if(!file_exists("editable/".$element['id'].".".$element['extension_editable'])) { echo 'style="opacity: 0.4;" '; } ?>class="dl_editable" href="editable/<? echo $element['id']; ?>.<? echo $element['extension_editable']; ?>">Editable version</a>
-				<a class="upload" href="publish.php?id=<? echo $element['id']; ?>">Publish a new version</a>
-			</p>
-		</article>
-		<? } ?>
+		<? foreach($types as $element) { 
+			include_once "plugin/".$element['plugin']."/index.php";
+			$function_name = "displayIndexElement_" . $element['plugin'];
+			print $function_name($element, $root);
+		} ?>
 	</section>
 	<footer>
 		<p>

@@ -1,11 +1,11 @@
-<? include "config.php"; ?>
+<? include "../../config.php"; ?>
 
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="utf-8" />
 	<meta name="description" content="<? echo $full_name; ?>">
-	<link rel="stylesheet" href="stylesheet.css" media="screen, handheld" />
+	<link rel="stylesheet" href="../../stylesheet.css" media="screen, handheld" />
 	<title>Publish a file − <? echo $full_name; ?></title>
 </head>
 <body>
@@ -17,15 +17,17 @@
 			<p>Uploading <? echo $types[$_GET['id']]['id'].'.'.$types[$_GET['id']]['extension_editable'];?>…</p>
 		 
 			<?
-			if(file_exists("editable/".$types[$_GET['id']]['id'].'.'.$types[$_GET['id']]['extension_editable']))
+
+			$directory = '../../editable/'; // directory
+
+			if(file_exists($directory.$types[$_GET['id']]['id'].'.'.$types[$_GET['id']]['extension_editable']))
 			{
-				for($i=1;file_exists("readonly/".$types[$_GET['id']]['id'].$i.'.'.$types[$_GET['id']]['extension_editable']);$i++) {}
-				rename("editable/".$types[$_GET['id']]['id'].'.'.$types[$_GET['id']]['extension_editable'],"editable/".$types[$_GET['id']]['id'].$i.'.'.$types[$_GET['id']]['extension_editable']);
+				for($i=1;file_exists($directory.$types[$_GET['id']]['id'].$i.'.'.$types[$_GET['id']]['extension_editable']);$i++) {}
+				rename($directory.$types[$_GET['id']]['id'].'.'.$types[$_GET['id']]['extension_editable'],$directory.$types[$_GET['id']]['id'].$i.'.'.$types[$_GET['id']]['extension_editable']);
 			}		 
 
 			 if ($_FILES['editable_file'] != NULL) {
 				$max_size = 10000000; // approx. 10 MB
-					$directory = 'editable/'; // directory
 					if (isset($_FILES['editable_file']))
 					{
 						// Test max size
@@ -64,16 +66,18 @@
 			<br /><p>Uploading <? echo $types[$_GET['id']]['id'].'.'.$types[$_GET['id']]['extension_readonly'];?>…</p>
 			
 			<?
-			if(file_exists("readonly/".$types[$_GET['id']]['id'].'.'.$types[$_GET['id']]['extension_readonly']))
+
+			$directory = '../../readonly/'; // directory
+
+			if(file_exists($directory.$types[$_GET['id']]['id'].'.'.$types[$_GET['id']]['extension_readonly']))
 			{
-				for($i=1;file_exists("readonly/".$types[$_GET['id']]['id'].$i.'.'.$types[$_GET['id']]['extension_readonly']);$i++) {}
-				rename("readonly/".$types[$_GET['id']]['id'].'.'.$types[$_GET['id']]['extension_readonly'],"readonly/".$types[$_GET['id']]['id'].$i.'.'.$types[$_GET['id']]['extension_readonly']);
+				for($i=1;file_exists($directory.$types[$_GET['id']]['id'].$i.'.'.$types[$_GET['id']]['extension_readonly']);$i++) {}
+				rename($directory.$types[$_GET['id']]['id'].'.'.$types[$_GET['id']]['extension_readonly'],$directory.$types[$_GET['id']]['id'].$i.'.'.$types[$_GET['id']]['extension_readonly']);
 			}
 			
 			unset($erreurUp);
 			if ($_FILES['readonly_file'] != NULL) {
 				$max_size = 10000000; // approx. 10 MB
-					$directory = 'readonly/'; // directory
 					if (isset($_FILES['readonly_file']))
 					{
 						// Test max size
@@ -109,7 +113,7 @@
 					}
 				} ?>
 				
-			<br /><p>Go back to <a href="./">home</a></p>
+			<br /><p>Go back to <a href="<? echo $root; ?>">home</a></p>
 		</article>	
 				
 		<? } else if( !isset($_GET['id']) || !isset($types[$_GET['id']]) ) { ?>
