@@ -5,8 +5,8 @@ function displayIndexElement_problem_report($element, $root) { ?>
 		<article id="<? echo $element['id']; ?>">
 			<h2><? echo $element['name']; ?></h2>
 			<p>
-				<a class="database" href="<? echo $root; ?>plugin/problem_report/view.php?id=<? echo $element['id']; ?>">Access to the database</a>
-				<a class="database_export" href="<? echo $root; ?>plugin/problem_report/export.php?id=<? echo $element['id']; ?>">Export the database in SQL</a>
+				<a class="database" href="<? echo $root; ?>plugin/problem_report/view.php">Access to the database</a>
+				<a class="database_export" href="<? echo $root; ?>plugin/problem_report/export.php">Export the database in SQL</a>
 			</p>
 		</article>
 <? } ?>

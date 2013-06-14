@@ -1,8 +1,8 @@
 <?
 
-$full_name = "Eurolec Quality System";
-$footer_content = "&copy; Eurolec Instruments Ltd. 2013";
-$root = "http://localhost/Catalogs/ISO_Files/";
+$full_name = "Eurolec Quality System"; // The name displayed on the top of each page
+$footer_content = "&copy; Eurolec Instruments Ltd. 2013"; // The footer content
+$root = "http://localhost/Catalogs/ISO_Files/"; // Thu URL of the folder containing this file
 
 /* This table is used to create the system */
 $types = array(
@@ -46,6 +46,7 @@ $types = array(
 		"extension_readonly" => "pdf",
 		"extension_editable" => "xls",
 	),
+);
 /********************************************************************
 Please follow the following instructions if you want to add an object
 Firstly you have to copy and paste an item (one array) in order to create a new item
@@ -59,6 +60,13 @@ Now, you have to choose a plugin in the list bellow :
  * problem_report
    It is used to create a customers complaints on the system, you must register the following special values :
 ********************************************************************/
-);
+
+// The MySQL Database connexion used by problem_report plugin
+$host = "localhost";
+$user = "OpenSourceWay";
+$password = "wxcvbn,;:!123";
+$base = "quality_system";
+$table = "qs_problem_report";
+
 
 ?>
