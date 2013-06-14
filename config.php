@@ -38,6 +38,7 @@ $types = array(
 		"id" => "problem_report",
 		"name" => "Problem Report",
 		"plugin" => "problem_report",
+		"table" => "qs_problem_report",
 	),
 	"calibration_report" => array(
 		"id" => "calibration_report",
@@ -59,6 +60,7 @@ Now, you have to choose a plugin in the list bellow :
 	"extension_editable" => "", // With the extension of the editable version (eg. doc)
  * problem_report
    It is used to create a customers complaints on the system, you must register the following special values :
+	"table" => "", // The SQL table where the database is stored
 ********************************************************************/
 
 // The MySQL Database connexion used by problem_report plugin
@@ -66,7 +68,6 @@ $host = "localhost";
 $user = "OpenSourceWay";
 $password = "wxcvbn,;:!123";
 $base = "quality_system";
-$table = "qs_problem_report";
 
 
 ?>

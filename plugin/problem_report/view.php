@@ -6,144 +6,102 @@
 	<meta charset="utf-8" />
 	<meta name="description" content="<? echo $full_name; ?>">
 	<link rel="stylesheet" href="../../stylesheet.css" media="screen, handheld" />
-	<title>Publish a file − <? echo $full_name; ?></title>
+	<title>Problem Report − <? echo $full_name; ?></title>
 </head>
 <body>
-	<header><h1>Publish a file</h1></header>
+	<header><h1><a href="<? echo $root; ?>">Problem Report</a></h1></header>
 	<section>
-		<? if ( isset($_POST['submit_files']) ) { ?>
-		<article id="file_upload">
-			<h2>The files are uploading</h2>
-			<p>Uploading <? echo $types[$_GET['id']]['id'].'.'.$types[$_GET['id']]['extension_editable'];?>…</p>
-		 
-			<?
+	<? if(isset($_GET['id']) && $types[$_GET['id']]['plugin'] == "problem_report")
+	{
+		if(!isset($_GET['number'])) { $number = 1; }
+		else { $number = $_GET['number']; }
 
-			$directory = '../../editable/'; // directory
+		$table = $types[$_GET['id']]['table'];
+		$link = mysql_connect($host,$user,$password);
+		mysql_select_db($base,$link);
 
-			if(file_exists($directory.$types[$_GET['id']]['id'].'.'.$types[$_GET['id']]['extension_editable']))
-			{
-				for($i=1;file_exists($directory.$types[$_GET['id']]['id'].$i.'.'.$types[$_GET['id']]['extension_editable']);$i++) {}
-				rename($directory.$types[$_GET['id']]['id'].'.'.$types[$_GET['id']]['extension_editable'],$directory.$types[$_GET['id']]['id'].$i.'.'.$types[$_GET['id']]['extension_editable']);
-			}		 
+		$query = mysql_query("SELECT * FROM `$table` WHERE number='$number'");
+		$pr = mysql_fetch_array($query);
 
-			 if ($_FILES['editable_file'] != NULL) {
-				$max_size = 10000000; // approx. 10 MB
-					if (isset($_FILES['editable_file']))
-					{
-						// Test max size
-						if ($_FILES['editable_file']['size'] > $max_size)
-						{
-							$erreurUp = 'The maximum size is ' . $max_size/1024 . 'KB per file.';
-						}
-						// Upload directory exists ?
-						elseif (!file_exists($directory))
-						{
-							$erreurUp = 'The upload directory doesn\'t exist.';
-						}
-						// Display error message or continue
-						if(isset($erreurUp))
-						{
-							echo '<span class="error">' . $erreurUp . '</span><br />';
-						}
-						else
-						{
-							// Define the new filename and extension
-							$extension = '.'.$types[$_GET['id']]['extension_editable'];
-							$filename = $_GET['id'];
- 
-							// Upload the file to the server
-							if (move_uploaded_file($_FILES['editable_file']['tmp_name'], $directory.$filename.$extension))
-							{ echo '<span class="ok">Ok</span><br />'; }
-							else
-							{
-								echo '<span class="error">Error while uploading the file.</span><br />';
-							}
- 
-						}
-					}
-				} ?>
-		
-			<br /><p>Uploading <? echo $types[$_GET['id']]['id'].'.'.$types[$_GET['id']]['extension_readonly'];?>…</p>
-			
-			<?
-
-			$directory = '../../readonly/'; // directory
-
-			if(file_exists($directory.$types[$_GET['id']]['id'].'.'.$types[$_GET['id']]['extension_readonly']))
-			{
-				for($i=1;file_exists($directory.$types[$_GET['id']]['id'].$i.'.'.$types[$_GET['id']]['extension_readonly']);$i++) {}
-				rename($directory.$types[$_GET['id']]['id'].'.'.$types[$_GET['id']]['extension_readonly'],$directory.$types[$_GET['id']]['id'].$i.'.'.$types[$_GET['id']]['extension_readonly']);
-			}
-			
-			unset($erreurUp);
-			if ($_FILES['readonly_file'] != NULL) {
-				$max_size = 10000000; // approx. 10 MB
-					if (isset($_FILES['readonly_file']))
-					{
-						// Test max size
-						if ($_FILES['readonly_file']['size'] > $max_size)
-						{
-							$erreurUp = 'The maximum size is ' . $max_size/1024 . 'KB per file.';
-						}
-						// Upload directory exists ?
-						elseif (!file_exists($directory))
-						{
-							$erreurUp = 'The upload directory doesn\'t exist.';
-						}
-						// Display error message or continue
-						if(isset($erreurUp))
-						{
-							echo '<span class="error">' . $erreurUp . '</span><br />';
-						}
-						else
-						{
-							// Define the new filename and extension
-							$extension = '.'.$types[$_GET['id']]['extension_readonly'];
-							$filename = $_GET['id'];
- 
-							// Upload the file to the server
-							if (move_uploaded_file($_FILES['readonly_file']['tmp_name'], $directory.$filename.$extension))
-							{ echo '<span class="ok">Ok</span><br />'; }
-							else
-							{
-								echo '<span class="error">Error while uploading the file.</span><br />';
-							}
- 
-						}
-					}
-				} ?>
-				
-			<br /><p>Go back to <a href="<? echo $root; ?>">home</a></p>
-		</article>	
-				
-		<? } else if( !isset($_GET['id']) || !isset($types[$_GET['id']]) ) { ?>
+		if($pr['number'] != NULL)
+		{
+			?>
+			<article id="view_ok">
+				<div id="nav_buttons">
+					<a href="view.php?id=<? echo $_GET['id']; ?>&number=<? echo $number-1; ?>"><img alt="Previous" src="<? echo $root; ?>imgs/prev.png" /></a> 
+					<a href="view.php?id=<? echo $_GET['id']; ?>&number=<? echo $number+1; ?>"><img alt="Next" src="<? echo $root; ?>imgs/next.png" /></a>
+				</div>
+				<h2>Read Only Version <a class="mono" href="edit.php?id=<? echo $_GET['id']; ?>&number=<? echo $number; ?>">[edit]</a> <a class="mono" href="new.php?id=<? echo $_GET['id']; ?>">[new]</a></h2>
+				<table cellspacing="5" width="100%">
+					<tr>
+						<td><div class="title">Type of Problem</div><? echo $pr['type_of_pb']; ?></td>
+						<td><div class="title">Customer</div><? echo $pr['customer']; ?></td>
+					</tr>
+					<tr>
+						<td class="noborder">&nbsp;</td>
+						<td><div class="title">Number</div><? echo $pr['number']; ?></td>
+					</tr>
+					<tr>
+						<td class="noborder">&nbsp;</td>
+						<td><div class="title">Date</div><? echo $pr['date']; ?></td>
+					</tr>
+					<tr>
+						<td colspan="2"><div class="title">Description and cause of the problem</div><? echo $pr['description']; ?></td>
+					</tr>
+					<tr>
+						<td><div class="title">Auditee</div><? echo $pr['auditee']; ?></td>
+						<td><div class="title">Auditor</div><? echo $pr['auditor']; ?></td>
+					</tr>
+					<tr>
+						<td colspan="2"><div class="title">The problem analysis &amp; Action required to prevent reocurrence</div><? echo $pr['analysis']; ?></td>
+					</tr>
+					<tr>
+						<td><div class="title">Action By</div><? echo $pr['action_by']; ?></td>
+						<td><div class="title">Completion date</div><? echo $pr['completion_date']; ?></td>
+					</tr>
+					<tr>
+						<td colspan="2"><div class="title">Action taken and result of CAR</div><? echo $pr['action_taken']; ?></td>
+					</tr>
+					<tr>
+						<td><div class="title">Closed by</div><? echo $pr['closed_by']; ?></td>
+						<td><div class="title">Closed date</div><? echo $pr['closed_date']; ?></td>
+					</tr>
+				</table>
+			</article>
+		<? } else { 
+		$query = "SELECT * FROM `$table`";
+		$list = mysql_query($query);
+		?>
+			<article id="view_number">
+				<h2>Wrong number!</h2>
+				<p class="legend">Please select a problem number bellow…</p>
+				<form method="GET" action="">
+					<select name="number">
+						<? while ( $line = mysql_fetch_assoc($list) ) { ?>
+							<option value="<? echo $line['number']; ?>"><? echo $line['number']; ?></option>
+						<? } ?>
+					</select>
+					<input type="hidden" value="<? echo $_GET['id']; ?>" name="id">
+					<input type="submit" value="Ok">
+				</form>
+			</article>
+		<? }
+	} else { ?>
 		<article id="id_select">
-			<h2>Select the file name</h2>
-			<p class="legend">Please select the file name you are uploading…</p>
+			<h2>Select the database</h2>
+			<p class="legend">Please select the table to be viewed…</p>
 			<form method="GET" action="">
 				<select name="id">
-					<? foreach($types as $element) { ?>
-					<option value="<? echo $element['id']; ?>"><? echo $element['name']; ?></option>
-					<? } ?>
+					<? foreach($types as $element) { 
+						if ($element['plugin']=="problem_report") { ?>
+							<option value="<? echo $element['id']; ?>"><? echo $element['name']; ?></option>
+						<? }
+					} ?>
 				</select>
 				<input type="submit" value="Ok">
 			</form>
 		</article>
-		<? } else if ( !isset($_GET['submit_files']) ) { ?>
-		<form method="POST" enctype="multipart/form-data" action="">
-		<article id="file_select">
-			<h2>Select the <span class="uppercase"><? echo $types[$_GET['id']]['extension_editable']; ?></span> file</h2>
-			<p class="legend">Please select the editable file in <span class="uppercase"><? echo $types[$_GET['id']]['extension_editable']; ?></span> format, it will be renamed in <span class="filename"><? echo $types[$_GET['id']]['id'].".".$types[$_GET['id']]['extension_editable']; ?></span></p>
-			<input type="file" name="editable_file">
-			<br /><br />
-			<h2>Select the <span class="uppercase"><? echo $types[$_GET['id']]['extension_readonly']; ?></span> file</h2>
-			<p class="legend">Please select the editable file in <span class="uppercase"><? echo $types[$_GET['id']]['extension_readonly']; ?></span> format, it will be renamed in <span class="filename"><? echo $types[$_GET['id']]['id'].".".$types[$_GET['id']]['extension_readonly']; ?></span></p>
-			<input type="file" name="readonly_file">
-			<br /><br />
-			<input type="submit" value="Submit" name="submit_files">
-		</article>
-		</form>
-		<? } ?>
+	<? } ?>
 	</section>
 	<footer>
 		<p>

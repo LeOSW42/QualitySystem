@@ -9,7 +9,7 @@
 	<title>Publish a file − <? echo $full_name; ?></title>
 </head>
 <body>
-	<header><h1>Publish a file</h1></header>
+	<header><h1><a href="<? echo $root; ?>">Publish a file</a></h1></header>
 	<section>
 		<? if ( isset($_POST['submit_files']) && $types[$_GET['id']]['plugin'] == "files") { ?>
 		<article id="file_upload">

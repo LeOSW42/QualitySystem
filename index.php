@@ -9,7 +9,7 @@
 	<title><? echo $full_name; ?></title>
 </head>
 <body>
-	<header><h1><? echo $full_name; ?></h1></header>
+	<header><h1><a href="<? echo $root; ?>"><? echo $full_name; ?></a></h1></header>
 	<section>
 		<? foreach($types as $element) { 
 			include_once "plugin/".$element['plugin']."/index.php";

@@ -22,6 +22,13 @@ header {
 	border-bottom: 1px solid #ccc;
 }
 
+h1 a {
+	color: inherit;
+}
+
+h1 a:hover {
+	color: inherit;
+}
 
 section {
 	background: #bbb;
@@ -91,6 +98,8 @@ footer {
 	font-weight: lighter;
 }
 
+/* Files Plugin */
+
 .legend {
 	font-size: small;
 	font-style: italic;
@@ -119,4 +128,39 @@ footer {
 	color: green;
 	font-size: small;
 	font-weight: bold;
+}
+
+/* Problem Report Plugin */
+
+.noborder, table {
+	border: 0;
+}
+
+td {
+	border: 1px solid #888;
+	padding: 4px;
+	border-radius: 3px;
+	vertical-align: top;
+}
+
+.title {
+	margin: -4px -4px 4px -4px;
+	padding: 2px;
+	font-weight: bold;
+	font-size: small;
+	background: #999;
+}
+
+#nav_buttons {
+	float: right;
+}
+
+#edit_ok textarea, #edit_ok input {
+	width: 100%;
+}
+
+.mono {
+	font-family: monospace;
+	font-size: 80%;
+	font-weight: normal;
 }

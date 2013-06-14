@@ -5,11 +5,11 @@
 <head>
 	<meta charset="utf-8" />
 	<meta name="description" content="<? echo $full_name; ?>">
-	<link rel="stylesheet" href="/stylesheet.css" media="screen, handheld" />
+	<link rel="stylesheet" href="stylesheet.css" media="screen, handheld" />
 	<title>404 Error - <? echo $full_name; ?></title>
 </head>
 <body>
-	<header><h1><? echo $full_name; ?></h1></header>
+	<header><h1><a href="<? echo $root; ?>"><? echo $full_name; ?></a></h1></header>
 	<section>
 		<article id="404">
 			<h2>Error 404</h2>
