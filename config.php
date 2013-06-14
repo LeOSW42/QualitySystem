@@ -34,10 +34,10 @@ $types = array(
 		"extension_readonly" => "pdf",
 		"extension_editable" => "xls",
 	),
-	"customers_complaints" => array(
-		"id" => "customers_complaints",
-		"name" => "Customers Complaints",
-		"plugin" => "user_complaints",
+	"problem_report" => array(
+		"id" => "problem_report",
+		"name" => "Problem Report",
+		"plugin" => "problem_report",
 	),
 	"calibration_report" => array(
 		"id" => "calibration_report",
@@ -56,7 +56,7 @@ Now, you have to choose a plugin in the list bellow :
    It is used to create a file on the system, you must register the following special values :
 	"extension_readonly" => "", // With the extension of the readonly version (eg. pdf)
 	"extension_editable" => "", // With the extension of the editable version (eg. doc)
- * user_complaints
+ * problem_report
    It is used to create a customers complaints on the system, you must register the following special values :
 ********************************************************************/
 );

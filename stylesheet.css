@@ -71,6 +71,12 @@ a {
 	margin: 0 10px 0 0;
 }
 
+.database_export {
+	background: url('imgs/database_export.png') no-repeat left center;
+	padding: 2px 0 2px 20px;
+	margin: 0 10px 0 0;
+}
+
 a:hover {
 	color: #ef6428;
 }
