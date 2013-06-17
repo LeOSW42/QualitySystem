@@ -48,8 +48,17 @@
 				<h2>Editable Version <a class="mono" href="view.php?id=<? echo $_GET['id']; ?>&number=<? echo $number; ?>">[view details]</a> <a class="mono" href="list.php?id=<? echo $_GET['id']; ?>">[list view]</a> <a class="mono" href="new.php?id=<? echo $_GET['id']; ?>">[new]</a></h2>
 				<form action="" method="POST">
 				<table cellspacing="5" width="100%">
+
 					<tr>
-						<td><div class="title">Type of Problem</div><input type="text" value="<? echo $pr['type_of_pb']; ?>" name="type_of_pb" /></td>
+						<td><div class="title">Type of Problem</div>
+						<select name="type_of_pb">
+<?						 foreach($type_of_pb_ddm as $item)
+						{
+							echo "\t\t\t\t\t\t\t<option value='$item'";
+							if($item == $pr['type_of_pb']) { echo " selected"; }
+							echo ">$item</option>\r\n";
+						} ?>
+						</select></td>
 						<td><div class="title">Customer</div><input type="text" value="<? echo $pr['customer']; ?>" name="customer" /></td>
 					</tr>
 					<tr>
@@ -64,7 +73,16 @@
 					</tr>
 					<tr>
 						<td><div class="title">Auditee</div><input type="text" value="<? echo $pr['auditee']; ?>" name="auditee" /></td>
-						<td><div class="title">Auditor</div><input type="text" value="<? echo $pr['auditor']; ?>" name="auditor" /></td>
+						<td><div class="title">Auditor</div>
+						<select name="auditor">
+<?						 foreach($auditor_ddm as $item)
+						{
+							echo "\t\t\t\t\t\t\t<option value='$item'";
+							if($item == $pr['auditor']) { echo " selected"; }
+							echo ">$item</option>\r\n";
+						} ?>
+						</select>
+						</td>
 					</tr>
 					<tr>
 						<td colspan="2"><div class="title">The problem analysis &amp; Action required to prevent reocurrence</div><textarea name="analysis"><? echo $pr['analysis']; ?></textarea></td>

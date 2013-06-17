@@ -187,8 +187,12 @@ pre {
 	float: right;
 }
 
-#edit_ok textarea, #edit_ok input, #new_ok textarea, #new_ok input {
+#edit_ok textarea, #edit_ok input, #edit_ok select, #new_ok textarea, #new_ok input, #new_ok select {
 	width: 100%;
+}
+
+#edit_ok textarea, #edit_ok input, #new_ok textarea, #new_ok input {
+	margin: 0 -3px;
 }
 
 .mono {

@@ -69,5 +69,23 @@ $user = "OpenSourceWay";
 $password = "wxcvbn,;:!123";
 $base = "quality_system";
 
+// problem_report Drop down menus
+// Please do not REMOVE or EDIT a line, you only can ADD a line !
+// In order to add a choice in the list, just add a new line
+$type_of_pb_ddm = array(
+	"CAR",
+	"Non Conforming Product",
+	"Customer Complaint",
+);
+$auditor_ddm = array(
+	"Internal Auditor",
+	"QA Manager",
+	"TH",
+	"CM",
+	"External",
+	"KG",
+	"TM",
+	"MM",
+);
 
 ?>
