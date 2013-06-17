@@ -99,6 +99,7 @@
 					</select>
 					<input type="hidden" value="<? echo $_GET['id']; ?>" name="id">
 					<input type="submit" value="Ok">
+					or add a <a href="new.php?id=<? echo $_GET['id']; ?>">[new]</a> problem report
 				</form>
 			</article>
 		<? }
