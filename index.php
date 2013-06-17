@@ -10,7 +10,7 @@
 </head>
 <body>
 	<header><h1><a href="<? echo $root; ?>"><? echo $full_name; ?></a></h1></header>
-	<section>
+	<section id="homepage">
 		<? foreach($types as $element) { 
 			include_once "plugin/".$element['plugin']."/index.php";
 			$function_name = "displayIndexElement_" . $element['plugin'];

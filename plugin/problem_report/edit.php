@@ -45,7 +45,7 @@
 					<a href="edit.php?id=<? echo $_GET['id']; ?>&number=<? echo $number-1; ?>"><img alt="Previous" src="<? echo $root; ?>imgs/prev.png" /></a> 
 					<a href="edit.php?id=<? echo $_GET['id']; ?>&number=<? echo $number+1; ?>"><img alt="Next" src="<? echo $root; ?>imgs/next.png" /></a>
 				</div>
-				<h2>Editable Version <a class="mono" href="view.php?id=<? echo $_GET['id']; ?>&number=<? echo $number; ?>">[view]</a></h2>
+				<h2>Editable Version <a class="mono" href="view.php?id=<? echo $_GET['id']; ?>&number=<? echo $number; ?>">[view details]</a> <a class="mono" href="list.php?id=<? echo $_GET['id']; ?>">[list view]</a> <a class="mono" href="new.php?id=<? echo $_GET['id']; ?>">[new]</a></h2>
 				<form action="" method="POST">
 				<table cellspacing="5" width="100%">
 					<tr>

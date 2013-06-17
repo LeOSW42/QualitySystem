@@ -23,12 +23,12 @@
 			<article id="new_submit">
 				<p><a href="javascript:history.back()">Go back to the previous page</a></p><br />
 				<p>Debug info - SQL query:<br />
-				<span class="mono"><? echo "UPDATE $table SET number='".$_POST['number']."',date='".$_POST['date']."',customer='".$_POST['customer']."',type_of_pb='".$_POST['type_of_pb']."',description='".$_POST['description']."',auditee='".$_POST['auditee']."',auditor='".$_POST['auditor']."',analysis='".$_POST['analysis']."',action_by='".$_POST['action_by']."',completion_date='".$_POST['completion_date']."',action_taken='".$_POST['action_taken']."',closed_by='".$_POST['closed_by']."',closed_date='".$_POST['closed_date']."' WHERE number=".$_POST['number']; ?></span></p>
+				<span class="mono"><? echo "INSERT $table SET number='".$_POST['number']."',date='".$_POST['date']."',customer='".$_POST['customer']."',type_of_pb='".$_POST['type_of_pb']."',description='".$_POST['description']."',auditee='".$_POST['auditee']."',auditor='".$_POST['auditor']."',analysis='".$_POST['analysis']."',action_by='".$_POST['action_by']."',completion_date='".$_POST['completion_date']."',action_taken='".$_POST['action_taken']."',closed_by='".$_POST['closed_by']."',closed_date='".$_POST['closed_date']."'"; ?></span></p>
 			</article>
 	<? } else if(isset($_GET['id']) && $types[$_GET['id']]['plugin'] == "problem_report")
 	{ ?>
 		<article id="new_ok">
-			<h2>Add a problem <a class="mono" href="view.php?id=<? echo $_GET['id']; ?>">[view]</a></h2>
+			<h2>Add a problem <a class="mono" href="view.php?id=<? echo $_GET['id']; ?>">[view details]</a> <a class="mono" href="list.php?id=<? echo $_GET['id']; ?>">[list view]</a> <a class="mono" href="edit.php?id=<? echo $_GET['id']; ?>">[edit]</a></h2></h2>
 			<form action="" method="POST">
 			<table cellspacing="5" width="100%">
 				<tr>

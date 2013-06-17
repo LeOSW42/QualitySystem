@@ -41,7 +41,7 @@ article {
 	border-top: 1px solid #aaa;
 	padding: 10px 20px;
 }
-article:hover {
+#homepage article:hover {
 	background: #a8a8a8;
 }
 
@@ -143,6 +143,34 @@ td {
 	vertical-align: top;
 }
 
+#list_view_ok td {
+	vertical-align: middle;
+	border: 1px solid #888;
+	padding: 4px;
+	border-radius: 0px;
+	line-height: 16px;
+}
+
+#list_view_ok td a img {
+	vertical-align: middle;
+}
+
+#list_view_ok th {
+	border: 1px solid #888;
+	padding: 2px;
+	font-weight: bold;
+	font-size: small;
+	background: #999;
+}
+
+#list_view_ok tr:hover {
+	background: #a8a8a8;
+}
+
+#list_view_ok table {
+	border-collapse: collapse;
+}
+
 .title {
 	margin: -4px -4px 4px -4px;
 	padding: 2px;
@@ -155,7 +183,7 @@ td {
 	float: right;
 }
 
-#edit_ok textarea, #edit_ok input {
+#edit_ok textarea, #edit_ok input, #new_ok textarea, #new_ok input {
 	width: 100%;
 }
 
