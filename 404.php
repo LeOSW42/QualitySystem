@@ -1,4 +1,6 @@
-<? include "config.php"; ?>
+<?
+//	Please read /config.php for informations
+include "config.php"; ?>
 
 <!DOCTYPE html>
 <html>

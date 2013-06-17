@@ -1,6 +1,11 @@
 <?
+/* Official plugin created by Léo SERRE under WTF License  */
 
 /* Function called to display an element on the index page */
+/* A block is creater containing a title and three links   */
+/* * One link to the read only version			   */
+/* * One link to the editable version			   */
+/* * One link to the uploader				   */
 function displayIndexElement_files($element, $root) { ?>
 		<article id="<? echo $element['id']; ?>">
 			<h2><? echo $element['name']; ?></h2>
