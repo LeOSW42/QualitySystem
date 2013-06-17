@@ -58,6 +58,8 @@
 		<article id="export_ok">
 			<h2>The table is successfully exported !</h2>
 			<p>Please download this file : <a href="<? echo $file; ?>"><? echo $file; ?></a></p>
+			<br />
+			<p><i><small>You also can download the content of the database <a href="csv.php?id=<? echo $_GET['id']; ?>">here</a> in CSV format, which can be opened with many Calc (separator: ;)</small></i></p>
 		</article>
 	<? } else { ?>
 		<article id="id_select">
@@ -79,7 +81,7 @@
 	<footer>
 		<p>
 			<? echo $footer_content; ?><br />
-			<small>Thanks to David Walsh for his <a href="http://davidwalsh.name/backup-mysql-database-php">script</a></small>
+			<small>Thanks to David Walsh for his <a href="http://davidwalsh.name/backup-mysql-database-php">script</a> and to ComScript for their <a href="http://www.comscripts.com/sources/php.export-csv.102.html">script</a></small>
 		</p>
 	</footer>
 </body>

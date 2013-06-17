@@ -26,7 +26,14 @@
 				<span class="mono"><? echo "INSERT $table SET number='".$_POST['number']."',date='".$_POST['date']."',customer='".$_POST['customer']."',type_of_pb='".$_POST['type_of_pb']."',description='".$_POST['description']."',auditee='".$_POST['auditee']."',auditor='".$_POST['auditor']."',analysis='".$_POST['analysis']."',action_by='".$_POST['action_by']."',completion_date='".$_POST['completion_date']."',action_taken='".$_POST['action_taken']."',closed_by='".$_POST['closed_by']."',closed_date='".$_POST['closed_date']."'"; ?></span></p>
 			</article>
 	<? } else if(isset($_GET['id']) && $types[$_GET['id']]['plugin'] == "problem_report")
-	{ ?>
+	{
+		$table = $types[$_GET['id']]['table'];
+		$link = mysql_connect($host,$user,$password);
+		mysql_select_db($base,$link);
+
+		$query = mysql_query("SELECT `number` FROM `$table` ORDER BY `$table`.`number` DESC LIMIT 1");
+		$pr = mysql_fetch_array($query);
+		?>
 		<article id="new_ok">
 			<h2>Add a problem <a class="mono" href="view.php?id=<? echo $_GET['id']; ?>">[view details]</a> <a class="mono" href="list.php?id=<? echo $_GET['id']; ?>">[list view]</a> <a class="mono" href="edit.php?id=<? echo $_GET['id']; ?>">[edit]</a></h2></h2>
 			<form action="" method="POST">
@@ -37,7 +44,7 @@
 				</tr>
 				<tr>
 					<td rowspan="2" style="width: 50%;"><div class="title">Infos about date formatting</div>The dates format is strict, it must be AAAA-MM-DD</td>
-					<td><div class="title">Number</div><input type="text" value="automatic" name="number" disabled /></td>
+					<td><div class="title">Number</div><input type="text" value="<? echo $pr['number']+1; ?>" name="number" readonly /></td>
 				</tr>
 				<tr>
 					<td><div class="title">Date</div><input type="text" value="AAAA-MM-DD" name="date" /></td>

@@ -143,6 +143,10 @@ td {
 	vertical-align: top;
 }
 
+pre {
+	white-space: pre-wrap;
+}
+
 #list_view_ok td {
 	vertical-align: middle;
 	border: 1px solid #888;
