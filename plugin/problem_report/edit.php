@@ -62,7 +62,7 @@
 						<td><div class="title">Customer</div><input type="text" value="<? echo $pr['customer']; ?>" name="customer" /></td>
 					</tr>
 					<tr>
-						<td rowspan="2" style="width: 50%;"><div class="title">Infos about date formatting</div>The dates format is strict, it must be AAAA-MM-DD</td>
+						<td rowspan="2" style="width: 50%;"><div class="title">Infos about date formatting</div>The dates format is strict, it must be YYYY-MM-DD</td>
 						<td><div class="title">Number</div><input type="text" value="<? echo $pr['number']; ?>" name="number" readonly /></td>
 					</tr>
 					<tr>
