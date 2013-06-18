@@ -5,9 +5,9 @@
 
 //	This is the configuration file, containing all the variables you can edit, please read the comments before
 
-$full_name = "Eurolec Quality System"; // The name displayed on the top of each page
-$footer_content = "&copy; Eurolec Instruments Ltd. 2013"; // The footer content
-$root = "http://localhost/Catalogs/ISO_Files/"; // Thu URL of the folder containing this file
+$full_name = "Démo"; // The name displayed on the top of each page
+$footer_content = "&copy; Démo User 2013"; // The footer content
+$root = "http://domain.tld/"; // Thu URL of the folder containing this file
 
 /* This table is used to create the system */
 /* Please read the comments at the bottom  */

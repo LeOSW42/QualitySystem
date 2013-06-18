@@ -81,8 +81,7 @@
 							if($item == $pr['auditor']) { echo " selected"; }
 							echo ">$item</option>\r\n";
 						} ?>
-						</select>
-						</td>
+						</select></td>
 					</tr>
 					<tr>
 						<td colspan="2"><div class="title">The problem analysis &amp; Action required to prevent reocurrence</div><textarea name="analysis"><? echo $pr['analysis']; ?></textarea></td>

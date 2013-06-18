@@ -1,6 +1,6 @@
 # Quality System
 
-![screenshot](https://raw.github.com/LeOSW42/QualitySystem/master/imgs/screenshot.png)
+You can find a demo [here](http://leo-serre.legtux.org/QS/) and a screenshot [here](https://raw.github.com/LeOSW42/QualitySystem/master/imgs/screenshot.png)
 
 ## Summary
 
