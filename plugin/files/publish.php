@@ -135,7 +135,7 @@
 			<h2>Select the <span class="uppercase"><? echo $types[$_GET['id']]['extension_readonly']; ?></span> file</h2>
 			<p class="legend">Please select the editable file in <span class="uppercase"><? echo $types[$_GET['id']]['extension_readonly']; ?></span> format, it will be renamed in <span class="filename"><? echo $types[$_GET['id']]['id'].".".$types[$_GET['id']]['extension_readonly']; ?></span></p>
 			<input type="file" name="readonly_file">
-			<br /><br />
+			<br /><br /><p class="warning"><b>Warning:</b> if you select only one file, the two current file will be backed up and only the file you've selected above will be accessible from the main page.</p><br />
 			<input type="submit" value="Submit" name="submit_files">
 		</article>
 		</form>
