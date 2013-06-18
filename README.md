@@ -24,7 +24,7 @@
   - Drop-down menus
 * Access protected
   - Change the password
-  - Remove the security
+  - Add the security
 * Install this software
   - Copy files
   - Database
@@ -140,3 +140,143 @@ $full_name = "Eurolec Quality System"; // The name displayed on the top of each 
 $footer_content = "&copy; Eurolec Instruments Ltd. 2013"; // The footer content
 $root = "http://localhost/Catalogs/ISO_Files/"; // URL of the folder containing this file
 ```
+
+### Moving the blocks
+
+You can quickly move the blocks on the home page, access to the config file, and move
+the blocks in the order you want. A block is an array like this one (please do not destroy
+an array)
+
+```php
+"vendor_approval" => array(
+	"id" => "vendor_approval",
+	"name" => "Vendor Approval",
+	"plugin" => "files",
+	"extension_readonly" => "pdf",
+	"extension_editable" => "xls",
+),
+```
+
+### Editing a block
+
+This is a block :
+
+```php
+"$vendor_approval$" => array(
+	"id" => "$vendor_approval$",
+	"name" => "$Vendor Approval$",
+	"plugin" => "$files$",
+	"extension_readonly" => "$pdf$",
+	"extension_editable" => "$xls$",
+),
+```
+
+In this block, you only can change the values between tho $ sign. The two firsts value must be
+the same, without stange characters.
+
+The name name value is the human readable value, which is displayed.
+
+The plugin value is the type of the object, the list is at the end of the config file.
+
+The others values depends of the plugin used, please read the end of the config file.
+
+### Database configuration
+
+The MySQL database is used by the report_problem plugin to store the data, you must
+complete this values only if you want to use this plugin.
+
+```php
+// The MySQL Database connexion used by problem_report plugin
+$host = "localhost";
+$user = "username";
+$password = "secret!";
+$base = "base_name";
+```
+
+Do not change this values if you are not sure.
+
+### Files Extensions
+
+In the files plugin, you can easily change the file extension of both of read only and
+editable versions, in ordr to do that, you have to open the `/config.php` file, where you'll
+see the following lines for each block:
+
+```php
+	"extension_readonly" => "$pdf$",
+	"extension_editable" => "$xls$",
+```
+
+You can replace this extension by all the extensions in the world. No limit.
+
+### Drop-down menus
+
+You also can easily change the drop-down menus in order to add an option (***please do
+not remove or edit on option because the database will not be changed***).
+
+You will the this lines at the end of the `/config.php` file:
+
+```php
+$type_of_pb_ddm = array(
+	"CAR",
+	"Non Conforming Product",
+	"Customer Complaint",
+);
+	$auditor_ddm= array(
+	"Internal Auditor",
+	"QA Manager",
+	"TH",
+	"CM",
+	"External",
+	"KG",
+	"TM",
+	"MM",
+);
+```
+
+You just have to add a line in the menu you want, use the same synthax than the others.
+
+## Access protected.
+
+The access of this website can be protected, You can change add a password.
+
+### Change the password
+
+Create a `/.htpasswd` file, you have to write a single line looking like that:
+
+```
+user:4kBOFakrn0.xY
+```
+
+### Add the security
+
+In `/.htaccess` file, You can add the 4 lines like bellow:
+
+```
+AuthName "Secured Area"
+AuthType Basic
+AuthUserFile "/ABSOLUTE_PATH/.htpasswd"
+Require valid-user
+```
+
+You must replace the ABSOLUTE_PATH by the absolute path looking like `/home/xxx/qs/`. **Do not remove the error document line!**
+
+## Install this software
+
+You have two steps, the first one is important, the second option (you can skip it if you
+don't use the problem_report plugin).
+
+### Copy files
+
+Connect you via an FTP client (like Filezilla) and copy all the [source code](https://github.com/LeOSW42/QualitySystem/archive/master.zip) folder to the
+folder you want on the website (accessible by the internet).
+
+### Database
+
+Connect you to the MySQL database using PHPMyAdmin, then open a database and a
+table (or create it if not exists). In the table view, click on import and select the
+`database_stuct.sql` file, click on import.
+
+Now, in the file manager, go to the `/config.php` file and write the correct database
+name, username, password, table name and host adress.
+
+You can now acces to the website, all is working !
