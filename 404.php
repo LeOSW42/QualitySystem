@@ -15,7 +15,7 @@ include "config.php"; ?>
 	<section>
 		<article id="404">
 			<h2>Error 404</h2>
-			<p>The file you are looking does not exist, please upload the first version <a href="<? echo $root; ?>plugin/files/publish.php">here</a> or go back to <a href="/index.php">home</a>.</p>
+			<p>The file you are looking does not exist, please upload the first version <a href="<? echo $root; ?>plugin/files/publish.php">here</a> or go back to <a href="<? echo $root; ?>index.php">home</a>.</p>
 		</article>
 	</section>
 	<footer>
