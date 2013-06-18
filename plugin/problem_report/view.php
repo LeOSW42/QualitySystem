@@ -13,15 +13,29 @@
 	<section>
 	<? if(isset($_GET['id']) && $types[$_GET['id']]['plugin'] == "problem_report")
 	{
+		// Take the good number
 		if(!isset($_GET['number'])) { $number = 1; }
 		else { $number = $_GET['number']; }
 
-		$table = $types[$_GET['id']]['table'];
-		$link = mysql_connect($host,$user,$password);
-		mysql_select_db($base,$link);
+		// Connecting to MySQL database using PDO connector
+		$strConnexion = "mysql:host=$host;dbname=$base";
+		$arrExtraParam= array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"); // Bug in PHP 5.3
+		$pdo = new PDO($strConnexion, $user, $password, $arrExtraParam);
+		$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
 
-		$query = mysql_query("SELECT * FROM `$table` WHERE number='$number'");
-		$pr = mysql_fetch_array($query);
+		// Prepare the query
+		$table = $types[$_GET['id']]['table'];
+		$query = "SELECT * FROM $table WHERE number=?";
+		$prep = $pdo->prepare($query);
+	
+		// Associate the values and execute
+		$prep->bindValue(1, $number, PDO::PARAM_INT);
+		$prep->execute();
+
+		// Fetch and close
+		$pr = $prep->fetch();
+		$prep->closeCursor();
+		$prep = NULL;
 
 		if($pr['number'] != NULL)
 		{
@@ -68,16 +82,20 @@
 					</tr>
 				</table>
 			</article>
-		<? } else { 
-		$query = "SELECT * FROM `$table`";
-		$list = mysql_query($query);
+		<? } else {
+
+		// Make the query
+		$table = $types[$_GET['id']]['table'];
+		$query = "SELECT * FROM $table";
+		$data = $pdo->query($query);
+		$list = $data->fetchAll();
 		?>
 			<article id="view_number">
 				<h2>Wrong number!</h2>
 				<p class="legend">Please select a problem number bellow…</p>
 				<form method="GET" action="">
 					<select name="number">
-						<? while ( $line = mysql_fetch_assoc($list) ) { ?>
+						<? foreach($list as $line) { ?>
 							<option value="<? echo $line['number']; ?>"><? echo $line['number']; ?></option>
 						<? } ?>
 					</select>
