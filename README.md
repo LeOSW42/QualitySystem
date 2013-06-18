@@ -9,25 +9,25 @@
   - [Accessing to the archive](#accessing-to-the-archive)
 * [Problem Report Plugin](#problem-report-plugin)
   - [View the currents problems in detail](#view-the-currents-problems-in-detail)
-  - View the currents the list of problems
-  - Edit the current problem
-  - Add a problem
-  - Delete a problem
-  - Back up the database
-* Configure
-  - Access to the configuration file
-  - General configuration
-  - Moving the blocks
-  - Editing a block
-  - Database configuration
-  - Files Extensions
-  - Drop-down menus
-* Access protected
-  - Change the password
-  - Add the security
-* Install this software
-  - Copy files
-  - Database
+  - [View the currents the list of problems](#view-the-currents-the-list-of-problems)
+  - [Edit the current problem](#edit-the-current-problem)
+  - [Add a problem](#add-a-problem)
+  - [Delete a problem](#delete-a-problem)
+  - [Back up the database](#back-up-the-database)
+* [Configure](#configure)
+  - [Access to the configuration file](#access-to-the-configuration-file)
+  - [General configuration](#general-configuration)
+  - [Moving the blocks](#moving-the-blocks)
+  - [Editing a block](#editing-a-block)
+  - [Database configuration](#database-configuration)
+  - [Files Extensions](#files-extensions)
+  - [Drop-down menus](#drop-down-menus)
+* [Access protected](#access-protected)
+  - [Change the password](#change-the-password)
+  - [Add the security](#add-the-security)
+* [Install this software](#install-this-software)
+  - [Copy files](#copy-files)
+  - [Database](#database)
 
 ## Files Plugin
 
@@ -116,8 +116,10 @@ You can't delete a problem
 
 The website allow you to export the database in SQL server and archive all the backed
 up, You can export the database by clicking on “Export the database in SQL”.
+
 The website will create a backup and show you the link to download it. First part of the
 link is the table name encrypted and the second part is the date.
+
 You also can click on the here link, it will generate a CSV version of the database.
 
 ***Note:***
@@ -130,6 +132,11 @@ This website is a CMS, you can quickly edit the content without technical skills
 need an FTP access and a text editor Notepad++ (or Notepad).
 
 ### Access to the configuration file
+
+The configuration file is `/config.php`, you'll need to download it, edit it and upload it (or
+editing it in live on the server).
+
+### General configuration
 
 In the `/config.php` file, you'll see three differents variables. You can edit the value of
 each one by simply edit the content between "". Please read the comments before
@@ -202,8 +209,8 @@ editable versions, in ordr to do that, you have to open the `/config.php` file, 
 see the following lines for each block:
 
 ```php
-	"extension_readonly" => "$pdf$",
-	"extension_editable" => "$xls$",
+	"extension_readonly" => "pdf",
+	"extension_editable" => "xls",
 ```
 
 You can replace this extension by all the extensions in the world. No limit.
