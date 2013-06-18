@@ -2,19 +2,19 @@
 
 ![screenshot](https://raw.github.com/LeOSW42/QualitySystem/master/imgs/screenshot.png)
 
-# Summary
+## Summary
 
-* Files Plugin
-  - Publish a new version
-  - Accessing to the archive
- * Problem Report Plugin
-  - View the currents problems in detail
+* [Files Plugin](#files-plugin)
+  - [Publish a new version](#publish-a-new-version)
+  - [Accessing to the archive](#accessing-to-the-archive)
+* [Problem Report Plugin](#problem-report-plugin)
+  - [View the currents problems in detail](#view-the-currents-problems-in-detail)
   - View the currents the list of problems
   - Edit the current problem
   - Add a problem
   - Delete a problem
   - Back up the database
- * Configure
+* Configure
   - Access to the configuration file
   - General configuration
   - Moving the blocks
@@ -22,19 +22,19 @@
   - Database configuration
   - Files Extensions
   - Drop-down menus
- * Access protected
+* Access protected
   - Change the password
   - Remove the security
- * Install this software
+* Install this software
   - Copy files
   - Database
 
-# Files Plugin
+## Files Plugin
 
 This plugin allow the user to download and upload files to the webserver, it rename
 automaticly the files into a standard format and archive the olds files.
 
-## Publish a new version
+### Publish a new version
 
 You'll need to click on publish a new version, from the home page. You'll be asked to
 select two files (the universal format and the source format) and press Submit.
@@ -48,7 +48,7 @@ on the extension you are uploading.
  * An error message will be displayed if there are no files selected.
  * If you've cliqued on an old or bad link, it will automaticly allow you to choose between all the possibilities.
 
-## Accessing to the archive
+### Accessing to the archive
 
 The files are automaticly backed up, the new one are not replacing the olds one.
 If you want to acces to the archive, please go on one of this adresses :
@@ -59,8 +59,8 @@ If you want to acces to the archive, please go on one of this adresses :
 The current one is `name.pdf`, the older one is `name1.pdf` and the newer is `nameX.pdf` (X
 higher than 1)
 
-# Problem Report Plugin
+## Problem Report Plugin
 
 This plugin use a MySQL database in order to store some informations about problems.
 
-## View the currents problems in detail
+### View the currents problems in detail
