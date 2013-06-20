@@ -13,11 +13,18 @@
 	<section>
 	<? if(isset($_GET['id']) && $types[$_GET['id']]['plugin'] == "problem_report")
 	{
-		$table = $types[$_GET['id']]['table'];
-		$link = mysql_connect($host,$user,$password);
-		mysql_select_db($base,$link);
+		// Connecting to MySQL database using PDO connector
+		$strConnexion = "mysql:host=$host;dbname=$base";
+		$arrExtraParam= array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"); // Bug in PHP 5.3
+		$pdo = new PDO($strConnexion, $user, $password, $arrExtraParam);
+		$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
 
-		$query = mysql_query("SELECT * FROM `$table`");
+		// Prepare the query
+		$table = $types[$_GET['id']]['table'];
+		$query = "SELECT * FROM $table";
+	
+		// Execute the query and fetch
+		$list = $pdo->query($query)->fetchAll();
 
 		?>
 		<article id="list_view_ok">
@@ -32,7 +39,7 @@
 						<th>Closed Date</th>
 						<th>Customer</th>
 					</tr>
-				<? while ( $line = mysql_fetch_assoc($query) ) { ?>
+				<? foreach($list as $line) { ?>
 					<tr>
 						<td><? echo $line['number']; ?> <a href="view.php?id=<? echo $_GET['id']; ?>&number=<? echo $line['number']; ?>"><img alt="view" src="<? echo $root; ?>imgs/magnifier.png" /></a> <a href="edit.php?id=<? echo $_GET['id']; ?>&number=<? echo $line['number']; ?>"><img alt="edit" src="<? echo $root; ?>imgs/pencil.png" /></a></td>
 						<td><? echo $line['type_of_pb']; ?></td>
