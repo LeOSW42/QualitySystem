@@ -17,30 +17,36 @@
 		function backup_tables($host,$user,$pass,$name,$tables)
 		{
 
-			$link = mysql_connect($host,$user,$pass);
-			mysql_select_db($name,$link);
+			// Connecting to MySQL database using PDO connector
+			$strConnexion = "mysql:host=$host;dbname=$name";
+			$arrExtraParam= array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"); // Bug in PHP 5.3
+			$pdo = new PDO($strConnexion, $user, $pass, $arrExtraParam);
+			$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
 
-			$result = mysql_query('SELECT * FROM '.$tables);
-			$num_fields = mysql_num_fields($result);
+			// Prepare the query
+			$query = "SELECT * FROM $tables";
+		
+			// Execute the query and fetch
+			$result = $pdo->query($query);
+			$num_fields = $result->columnCount();
+			$result = $result->fetchAll();
+			
 
 			$return = 'DROP TABLE '.$tables.';';
-			$row2 = mysql_fetch_row(mysql_query('SHOW CREATE TABLE '.$tables));
+			$row2 = $pdo->query("SHOW CREATE TABLE $tables")->fetch();
 			$return.= "\n\n".$row2[1].";\n\n";
 
-			for ($i = 0; $i < $num_fields; $i++) 
+			foreach ($result as $row)
 			{
-				while($row = mysql_fetch_row($result))
+				$return.= 'INSERT INTO '.$tables.' VALUES(';
+				for($j=0; $j<$num_fields; $j++) 
 				{
-					$return.= 'INSERT INTO '.$tables.' VALUES(';
-					for($j=0; $j<$num_fields; $j++) 
-					{
-						$row[$j] = addslashes($row[$j]);
-						$row[$j] = ereg_replace("\n","\\n",$row[$j]);
-						if (isset($row[$j])) { $return.= '"'.$row[$j].'"' ; } else { $return.= '""'; }
-						if ($j<($num_fields-1)) { $return.= ','; }
-					}
-					$return.= ");\n";
+					$row[$j] = addslashes($row[$j]);
+					$row[$j] = str_replace("\n", "\\n", $row[$j]);
+					if (isset($row[$j])) { $return.= '"'.$row[$j].'"' ; } else { $return.= '""'; }
+					if ($j<($num_fields-1)) { $return.= ','; }
 				}
+				$return.= ");\n";
 			}
 			$return.="\n\n\n";
 
