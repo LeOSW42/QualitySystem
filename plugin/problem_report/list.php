@@ -22,7 +22,7 @@
 
 		// Prepare the query
 		$table = $types[$_GET['id']]['table'];
-		$query = "SELECT * FROM $table";
+		$query = "SELECT * FROM $table ORDER BY `$table`.`number` DESC";
 	
 		// Execute the query and fetch
 		$list = $pdo->query($query)->fetchAll();
