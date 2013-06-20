@@ -6,6 +6,7 @@
 	<meta charset="utf-8" />
 	<meta name="description" content="<? echo $full_name; ?>">
 	<link rel="stylesheet" href="../../stylesheet.css" media="screen, handheld" />
+	<link rel="stylesheet" href="print.css" media="print" />
 	<title>Problem Report − <? echo $full_name; ?></title>
 </head>
 <body style="width: 100%">
@@ -28,6 +29,9 @@
 
 		?>
 		<article id="list_view_ok">
+			<div id="nav_buttons">
+				<a href="#" onclick="window.print()"><img alt="Print" src="<? echo $root; ?>imgs/print.png" /></a> 
+			</div>
 			<h2>List View <a class="mono" href="view.php?id=<? echo $_GET['id']; ?>">[view details]</a> <a class="mono" href="edit.php?id=<? echo $_GET['id']; ?>">[edit]</a> <a class="mono" href="new.php?id=<? echo $_GET['id']; ?>">[new]</a></h2></h2>
 			<table cellspacing="0" width="100%">
 					<tr>

@@ -44,6 +44,7 @@
 			<article id="view_ok">
 				<div id="nav_buttons">
 					<a href="view.php?id=<? echo $_GET['id']; ?>&number=<? echo $number-1; ?>"><img alt="Previous" src="<? echo $root; ?>imgs/prev.png" /></a> 
+					<a href="#" onclick="window.print()"><img alt="Print" src="<? echo $root; ?>imgs/print.png" /></a> 
 					<a href="view.php?id=<? echo $_GET['id']; ?>&number=<? echo $number+1; ?>"><img alt="Next" src="<? echo $root; ?>imgs/next.png" /></a>
 				</div>
 				<h2>Read Only Version <a class="mono" href="edit.php?id=<? echo $_GET['id']; ?>&number=<? echo $number; ?>">[edit]</a> <a class="mono" href="list.php?id=<? echo $_GET['id']; ?>">[list view]</a> <a class="mono" href="new.php?id=<? echo $_GET['id']; ?>">[new]</a></h2>
