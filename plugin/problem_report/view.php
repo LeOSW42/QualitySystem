@@ -6,6 +6,7 @@
 	<meta charset="utf-8" />
 	<meta name="description" content="<? echo $full_name; ?>">
 	<link rel="stylesheet" href="../../stylesheet.css" media="screen, handheld" />
+	<link rel="stylesheet" href="print.css" media="print" />
 	<title>Problem Report − <? echo $full_name; ?></title>
 </head>
 <body>
