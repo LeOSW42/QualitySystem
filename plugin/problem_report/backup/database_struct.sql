@@ -13,4 +13,4 @@ CREATE TABLE `qs_problem_report` (
   `closed_by` text NOT NULL,
   `closed_date` date NOT NULL,
   PRIMARY KEY (`number`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
