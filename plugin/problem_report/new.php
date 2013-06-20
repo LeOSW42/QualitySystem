@@ -13,26 +13,69 @@
 	<section>
 	<? if(isset($_GET['id']) && $types[$_GET['id']]['plugin'] == "problem_report" && isset($_POST['submit']))
 	{
-		$table = $types[$_GET['id']]['table'];
-		$link = mysql_connect($host,$user,$password);
-		mysql_select_db($base,$link);
+		// Connecting to MySQL database using PDO connector
+		$strConnexion = "mysql:host=$host;dbname=$base";
+		$arrExtraParam= array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"); // Bug in PHP 5.3
+		$pdo = new PDO($strConnexion, $user, $password, $arrExtraParam);
+		$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
 
-		mysql_query("INSERT $table SET number='".$_POST['number']."',date='".$_POST['date']."',customer='".$_POST['customer']."',type_of_pb='".$_POST['type_of_pb']."',description='".$_POST['description']."',auditee='".$_POST['auditee']."',auditor='".$_POST['auditor']."',analysis='".$_POST['analysis']."',action_by='".$_POST['action_by']."',completion_date='".$_POST['completion_date']."',action_taken='".$_POST['action_taken']."',closed_by='".$_POST['closed_by']."',closed_date='".$_POST['closed_date']."'");
+		// Prepare the query
+		$table = $types[$_GET['id']]['table'];
+		$query = "INSERT $table SET 
+			number=?,
+			date=?,
+			customer=?,
+			type_of_pb=?,
+			description=?,
+			auditee=?,
+			auditor=?,
+			analysis=?,
+			action_by=?,
+			completion_date=?,
+			action_taken=?,
+			closed_by=?,
+			closed_date=?";
+		$prep = $pdo->prepare($query);
+	
+		// Associate the values and execute
+		$prep->execute(array(
+			$_POST['number'],
+			$_POST['date'],
+			$_POST['customer'],
+			$_POST['type_of_pb'],
+			$_POST['description'],
+			$_POST['auditee'],
+			$_POST['auditor'],
+			$_POST['analysis'],
+			$_POST['action_by'],
+			$_POST['completion_date'],
+			$_POST['action_taken'],
+			$_POST['closed_by'],
+			$_POST['closed_date']));
+
+		// Close
+		$prep->closeCursor();
+		$prep = NULL;
 		
 			?>
 			<article id="new_submit">
-				<p><a href="javascript:history.back()">Go back to the previous page</a></p><br />
-				<p>Debug info - SQL query:<br />
-				<span class="mono"><? echo "INSERT $table SET number='".$_POST['number']."',date='".$_POST['date']."',customer='".$_POST['customer']."',type_of_pb='".$_POST['type_of_pb']."',description='".$_POST['description']."',auditee='".$_POST['auditee']."',auditor='".$_POST['auditor']."',analysis='".$_POST['analysis']."',action_by='".$_POST['action_by']."',completion_date='".$_POST['completion_date']."',action_taken='".$_POST['action_taken']."',closed_by='".$_POST['closed_by']."',closed_date='".$_POST['closed_date']."'"; ?></span></p>
+				<p>That works - <a href="javascript:history.back()">Go back to the previous page</a></p>
 			</article>
 	<? } else if(isset($_GET['id']) && $types[$_GET['id']]['plugin'] == "problem_report")
 	{
-		$table = $types[$_GET['id']]['table'];
-		$link = mysql_connect($host,$user,$password);
-		mysql_select_db($base,$link);
+		
+		// Connecting to MySQL database using PDO connector
+		$strConnexion = "mysql:host=$host;dbname=$base";
+		$arrExtraParam= array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"); // Bug in PHP 5.3
+		$pdo = new PDO($strConnexion, $user, $password, $arrExtraParam);
+		$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
 
-		$query = mysql_query("SELECT `number` FROM `$table` ORDER BY `$table`.`number` DESC LIMIT 1");
-		$pr = mysql_fetch_array($query);
+		// Prepare the query
+		$table = $types[$_GET['id']]['table'];
+		$query = "SELECT `number` FROM $table ORDER BY `$table`.`number` DESC LIMIT 1";
+	
+		// Execute the query and fetch
+		$pr = $pdo->query($query)->fetch();
 		?>
 		<article id="new_ok">
 			<h2>Add a problem <a class="mono" href="view.php?id=<? echo $_GET['id']; ?>">[view details]</a> <a class="mono" href="list.php?id=<? echo $_GET['id']; ?>">[list view]</a> <a class="mono" href="edit.php?id=<? echo $_GET['id']; ?>">[edit]</a></h2></h2>
