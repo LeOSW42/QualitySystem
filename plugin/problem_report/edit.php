@@ -13,29 +13,78 @@
 	<section>
 	<? if(isset($_GET['id']) && $types[$_GET['id']]['plugin'] == "problem_report" && isset($_POST['submit']))
 	{
-		$table = $types[$_GET['id']]['table'];
-		$link = mysql_connect($host,$user,$password);
-		mysql_select_db($base,$link);
+		// Connecting to MySQL database using PDO connector
+		$strConnexion = "mysql:host=$host;dbname=$base";
+		$arrExtraParam= array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"); // Bug in PHP 5.3
+		$pdo = new PDO($strConnexion, $user, $password, $arrExtraParam);
+		$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
 
-		mysql_query("UPDATE $table SET number='".$_POST['number']."',date='".$_POST['date']."',customer='".$_POST['customer']."',type_of_pb='".$_POST['type_of_pb']."',description='".$_POST['description']."',auditee='".$_POST['auditee']."',auditor='".$_POST['auditor']."',analysis='".$_POST['analysis']."',action_by='".$_POST['action_by']."',completion_date='".$_POST['completion_date']."',action_taken='".$_POST['action_taken']."',closed_by='".$_POST['closed_by']."',closed_date='".$_POST['closed_date']."' WHERE number=".$_POST['number']);
-		
-			?>
+		// Prepare the query
+		$table = $types[$_GET['id']]['table'];
+		$query = "UPDATE $table SET 
+			date=?,
+			customer=?,
+			type_of_pb=?,
+			description=?,
+			auditee=?,
+			auditor=?,
+			analysis=?,
+			action_by=?,
+			completion_date=?,
+			action_taken=?,
+			closed_by=?,
+			closed_date=?
+			WHERE number=?";
+		$prep = $pdo->prepare($query);
+	
+		// Associate the values and execute
+		$prep->execute(array(
+			$_POST['date'],
+			$_POST['customer'],
+			$_POST['type_of_pb'],
+			$_POST['description'],
+			$_POST['auditee'],
+			$_POST['auditor'],
+			$_POST['analysis'],
+			$_POST['action_by'],
+			$_POST['completion_date'],
+			$_POST['action_taken'],
+			$_POST['closed_by'],
+			$_POST['closed_date'],
+			$_POST['number'],));
+
+		// Close
+		$prep->closeCursor();
+		$prep = NULL;		
+		?>
 			<article id="edit_submit">
-				<p><a href="javascript:history.back()">Go back to the previous page</a></p><br />
-				<p>Debug info - SQL query:<br />
-				<span class="mono"><? echo "UPDATE $table SET number='".$_POST['number']."',date='".$_POST['date']."',customer='".$_POST['customer']."',type_of_pb='".$_POST['type_of_pb']."',description='".$_POST['description']."',auditee='".$_POST['auditee']."',auditor='".$_POST['auditor']."',analysis='".$_POST['analysis']."',action_by='".$_POST['action_by']."',completion_date='".$_POST['completion_date']."',action_taken='".$_POST['action_taken']."',closed_by='".$_POST['closed_by']."',closed_date='".$_POST['closed_date']."' WHERE number=".$_POST['number']; ?></span></p>
+				<p>That works - <a href="javascript:history.back()">Go back to the previous page</a></p>
 			</article>
 	<? } else if(isset($_GET['id']) && $types[$_GET['id']]['plugin'] == "problem_report")
 	{
+		// Take the good number
 		if(!isset($_GET['number'])) { $number = 1; }
 		else { $number = $_GET['number']; }
 
-		$table = $types[$_GET['id']]['table'];
-		$link = mysql_connect($host,$user,$password);
-		mysql_select_db($base,$link);
+		// Connecting to MySQL database using PDO connector
+		$strConnexion = "mysql:host=$host;dbname=$base";
+		$arrExtraParam= array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"); // Bug in PHP 5.3
+		$pdo = new PDO($strConnexion, $user, $password, $arrExtraParam);
+		$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
 
-		$query = mysql_query("SELECT * FROM `$table` WHERE number='$number'");
-		$pr = mysql_fetch_array($query);
+		// Prepare the query
+		$table = $types[$_GET['id']]['table'];
+		$query = "SELECT * FROM $table WHERE number=?";
+		$prep = $pdo->prepare($query);
+	
+		// Associate the values and execute
+		$prep->bindValue(1, $number, PDO::PARAM_INT);
+		$prep->execute();
+
+		// Fetch and close
+		$pr = $prep->fetch();
+		$prep->closeCursor();
+		$prep = NULL;
 
 		if($pr['number'] != NULL)
 		{
@@ -102,15 +151,18 @@
 				</form>
 			</article>
 		<? } else { 
-		$query = "SELECT * FROM `$table`";
-		$list = mysql_query($query);
+		// Make the query
+		$table = $types[$_GET['id']]['table'];
+		$query = "SELECT * FROM $table";
+		$data = $pdo->query($query);
+		$list = $data->fetchAll();
 		?>
 			<article id="edit_number">
 				<h2>Wrong number!</h2>
 				<p class="legend">Please select a problem number bellow…</p>
 				<form method="GET" action="">
 					<select name="number">
-						<? while ( $line = mysql_fetch_assoc($list) ) { ?>
+						<? foreach($list as $line) { ?>
 							<option value="<? echo $line['number']; ?>"><? echo $line['number']; ?></option>
 						<? } ?>
 					</select>
