@@ -42,6 +42,7 @@
 				for($j=0; $j<$num_fields; $j++) 
 				{
 					$row[$j] = addslashes($row[$j]);
+					$row[$j] = str_replace("\r", "", $row[$j]);
 					$row[$j] = str_replace("\n", "\\n", $row[$j]);
 					if (isset($row[$j])) { $return.= '"'.$row[$j].'"' ; } else { $return.= '""'; }
 					if ($j<($num_fields-1)) { $return.= ','; }
